@@ -966,7 +966,7 @@ document.querySelectorAll(".fab-option").forEach(btn => {
     input.value = '';
     body.scrollTop = body.scrollHeight;
   
-    const res = await fetch('/ask', {
+    const res = await fetch('./ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: msg })
