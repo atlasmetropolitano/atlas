@@ -4,9 +4,10 @@ import requests
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
-# Clave API de OpenRouter
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")  # leer desde variable de entorno
-#OPENROUTER_API_KEY = "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"
+# Clave API de OpenRouter desde variable de entorno
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+# Ejemplo (no usar así en producción):
+# OPENROUTER_API_KEY = "sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 @app.route("/")
 def index():
@@ -53,7 +54,10 @@ def ask():
     except Exception as e:
         return jsonify({"reply": f"Error al consultar el asistente: {str(e)}"})
 
+
+# 🔥 Configuración compatible con Render
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
