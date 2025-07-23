@@ -4,10 +4,7 @@ import requests
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
-# Clave API de OpenRouter desde variable de entorno
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
-# Ejemplo (no usar así en producción):
-# OPENROUTER_API_KEY = "sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 @app.route("/")
 def index():
@@ -23,7 +20,7 @@ def ask():
     try:
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-            "HTTP-Referer": "http://localhost:5000",
+            "HTTP-Referer": "https://atlasmetropolitanocim.onrender.com",
             "X-Title": "visor-sig",
             "Content-Type": "application/json"
         }
@@ -55,6 +52,6 @@ def ask():
         return jsonify({"reply": f"Error al consultar el asistente: {str(e)}"})
 
 
-# 🔥 Configuración compatible con Render
+# Render requiere esto para producción
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
